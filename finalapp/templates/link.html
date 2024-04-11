@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERBAVOX</title>
+    <!-- Add the Google Fonts link for 'Irish Grover' -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        nav {
+            background-color: #6cb4ee;
+            color: #000;
+            padding: 1rem;
+            text-align: center;
+            width: 150px;
+            height: 750px;
+        }
+
+        nav a {
+            background-color: #6cb4ee;
+            color: black;
+            height: 150px;
+            width: 80px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 1px;
+            transition: box-shadow 0.15s, color 0.15s;
+            display: block;
+        }
+
+        nav a:hover {
+            color: #656561;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+
+        .image-container img {
+            width: 300px;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 2rem;
+            margin: 0;
+        }
+
+        #home {
+            background-color: #ffffff;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        #home h2 {
+            font-size: 2rem;
+            font-family: 'Irish Grover', 'Inter', sans-serif; /* Use 'Irish Grover' font */
+            color: #000;
+        }
+
+        #home p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .form-container label {
+            margin-bottom: 0.5rem;
+            display: block;
+            color: #333333;
+        }
+
+        .form-container input {
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            background-color: rgb(45, 155, 228);
+            color: black;
+            border: none;
+            height: 30px;
+            width: 100px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: box-shadow 0.15s, color 0.1s;
+        }
+
+        .button:hover {
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .button:active {
+            opacity: 0.5;
+        }
+
+        .form-container button:hover {
+            background-color: #4682b4;
+        }
+
+        .upper-nav {
+            display: flex;
+            padding: 10px;
+        }
+
+        .upper-nav a {
+            color: black;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .upper-nav a + a {
+            margin-left: 20px; /* Adjust the margin as needed for spacing */
+        }
+
+        .upper-nav a:hover {
+            color: #656561;
+        }
+        #translationForm input {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+      
+    
+
+
+   
+</style>
+
+
+</head>
+<body>
+
+   
+
+    <div class="container">
+        <nav>
+            <a href="{% url 'link' %}" class="active">Home</a>
+            <a href="{% url 'load' %}">Loading</a>
+            <a href="{% url 'play' %}">Output Page</a>
+            <a href="{% url 'show_db' %}">History</a>
+
+
+            
+        </nav>
+
+        <div class="image-container">
+          <img src="{% static 'img/translatorimg.png' %}" alt="Image">
+
+        </div>
+
+        <div class="upper-nav">
+            <a href="{% url 'link' %}">Home</a>
+            <a href="{% url 'load' %}">Loading</a>
+            <a href="{% url 'play' %}">Output Page</a>
+            <a href="{% url 'show_db' %}">History</a>
+        </div>
+      
+        <main>
+            <section id="home">
+                <h2>Unlock Tamil Translations!</h2>
+                <p>Enter the YouTube URL below to get started:</p>
+                {% block content%}
+                <form action="{% url 'process_youtube_video' %}" method="post">
+                    {% csrf_token %}
+                
+                   
+                    <div class="form-container">
+                        <label for="youtube_url">YouTube URL:</label>
+                        <input type="text" id="youtube_url" name="youtube_url" placeholder="Enter YouTube URL" autocomplete="off">
+                       
+                        <label for="user_fileName">File Name:</label>
+                        <input type="text" id="user_filename" name="user_filename" placeholder="Enter the File Name" autocomplete="off">
+                        <button type="submit" id="run-code">Translate Video</button>
+                    </div>
+                </form>
+                {% endblock %}
+            </section>
+        </main>
+    </div>
+
+    <div id="loader-container">
+        <div id="loader"></div>
+
+    <style>
+
+body {
+         position: relative;
+     }
+
+     #loader-container {
+         background: rgba(255, 255, 255, 0.8);
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         z-index: 9999;
+         display: none;
+     }
+
+     #loader {
+         position: fixed;
+         top: 45%;
+         left: 45%;
+         border: 10px solid #f3f3f3;
+         border-top: 10px solid #000000;
+         border-radius: 50%;
+         width: 100px;
+         height: 100px;
+         animation: spin 1s linear infinite;
+     }
+
+     @keyframes spin {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+     }
+    </style>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#run-code").click(function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            $("#loader-container").show();  // Show loader
+            
+            // Get form data
+            var formData = {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                youtube_url: $('#youtube_url').val(),
+                user_filename: $('#user_filename').val()
+            };
+
+            // Simulate processing by making an AJAX request
+            $.ajax({
+                url: '/playing/',
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                    // Hide loader and update content with result
+                    $("#loader-container").hide();
+                    window.location.href = "/playing/";
+                    $("#result").text("Code execution completed!");
+                },
+                error: function () {
+                    // Handle errors if needed
+                    $("#loader-container").hide();
+                    alert("An error occurred");
+                }
+            });
+        });
+    });
+</script>
+
+
+    
+
+</body>
+</html>

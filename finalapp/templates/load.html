@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERBAVOX - Downloading Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add the Google Fonts link for 'Irish Grover' -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        nav {
+            background-color: #6cb4ee;
+            color: #000;
+            padding: 1rem;
+            text-align: center;
+            width: 150px;
+            height: 750px;
+        }
+
+        nav a {
+            background-color: #6cb4ee;
+            color: black;
+            height: 150px;
+            width: 80px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 1px;
+            transition: box-shadow 0.15s, color 0.15s;
+            display: block;
+        }
+
+        nav a:hover {
+            color: #656561;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 20px;
+        }
+
+        .image-container img {
+            width: 300px;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 2rem;
+            margin: 0;
+        }
+
+        #downloading {
+            background-color: #ffffff;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        #downloading h2 {
+            font-size: 2rem;
+            font-family: 'Irish Grover', 'Inter', sans-serif; /* Use 'Irish Grover' font */
+            color: #000;
+        }
+
+        #downloading p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        #progress-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: #6cb4ee;
+            border-radius: 8px;
+            transition: width 1s ease-in-out;
+        }
+
+        #progress-text {
+            color: #000;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .upper-nav {
+            display: flex;
+            padding: 10px;
+        }
+
+        .upper-nav a {
+            color: black;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .upper-nav a + a {
+            margin-left: 20px; /* Adjust the margin as needed for spacing */
+        }
+
+        .upper-nav a:hover {
+            color: #656561;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="{% url 'link' %}">Home</a>
+            <a href="{% url 'play' %}">Output Page</a>
+            <a href="{% url 'show_db' %}">History</a>
+        </nav>
+
+        <div class="image-container">
+            <img src="{% static 'img/translatorimg.png' %}" alt="Image">
+        </div>
+
+        <div class="upper-nav">
+            <a href="{% url 'link' %}">Home</a>
+            <a href="{% url 'play' %}">Output Page</a>
+            <a href="{% url 'show_db' %}">History</a>
+        </div>
+      
+        <main>
+            <section id="downloading">
+                <h2>Downloading Page</h2>
+                <p>Video is currently downloading. Please wait.</p>
+            
+                <!-- Progress Bar -->
+                <div id="progress-container">
+                    <div id="progress-bar"></div>
+                </div>
+
+                <!-- Progress Text -->
+                <p id="progress-text">Downloading: 0%</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Simulate progress update using JavaScript -->
+    <script>
+        let progress = 0;
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress-text");
+
+        function updateProgress() {
+            progress += 10;
+            progressBar.style.width = progress + "%";
+            progressText.textContent = "Loading: " + progress + "%";
+
+            if (progress < 100) {
+                setTimeout(updateProgress, 1000);
+            }
+        }
+
+        // Initial progress update
+        updateProgress();
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERBAVOX - Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add the Google Fonts link for 'Irish Grover' -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #6cb4ee;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .logo-container {
+            text-align: center;
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-family: 'Irish Grover', 'Inter', sans-serif;
+            margin-top: 20px;
+        }
+
+    
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        
+        <div class="logo">
+            VERBA<span style="color: #4682b4;">V</span>O<span style="color: #4682b4;">X</span>
+        </div>
+    </div>
+
+    <script>
+        // After 3 seconds, redirect to another page or perform any other action
+        setTimeout(function () {
+            window.location.href = "{% url 'link' %}"; // Replace with the desired page URL
+        }, 3000);
+    </script>
+</body>
+</html>
