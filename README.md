@@ -19,6 +19,7 @@ Verbavox is a Smart Translator tool designed to seamlessly translate YouTube vid
 
 
  Access the application through the web interface and input the YouTube URL for translation.
+ 
 
 ## Contribution
 
